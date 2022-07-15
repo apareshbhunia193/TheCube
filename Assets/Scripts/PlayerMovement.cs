@@ -7,10 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float rotationalSpeed = 50f;
     [SerializeField] Animator anim;
+    Rigidbody rigidbody1;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody1 = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,9 +23,11 @@ public class PlayerMovement : MonoBehaviour
         transform.position += movement * moveSpeed * Time.deltaTime;
         transform.Rotate(rotDir * rotationalSpeed * Time.deltaTime);
         if (movement.magnitude > 0) {
+            rigidbody1.isKinematic = false;
             anim.SetBool("isRunning",true);
         }else
         {
+            rigidbody1.isKinematic = true;
             anim.SetBool("isRunning", false);
         }
     }
